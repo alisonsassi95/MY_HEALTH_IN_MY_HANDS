@@ -1,125 +1,140 @@
 import 'package:flutter/material.dart';
+import 'presentation/samples/pie/pie_chart_sample2.dart'; // Importe o arquivo line_chart_sample1.dart
+import 'register_exam.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      home: Builder(
+        builder: (context) => Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: const Text('Bem-vindo(a) ao My Health in My Hands'),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: double.infinity, // largura máxima
+                  padding: EdgeInsets.all(20), // espaçamento interno
+                  color: Color(0xFF0D3B66), // cor de fundo #0D3B66
+                  child: Text(
+                    'Acesse seu aplicativo',
+                    style: TextStyle(
+                      color: Colors.white, // cor do texto branco
+                      fontSize: 24, // tamanho da fonte 24
+                      fontWeight: FontWeight.bold, // fonte em negrito
+                    ),
+                    textAlign: TextAlign.center, // texto centralizado
+                  ),
+                ),
+                // seção azul claro com formulário
+                Container(
+                  width: double.infinity, // largura máxima
+                  padding: EdgeInsets.all(20), // espaçamento interno
+                  color: Color(0xFF3C6E71), // cor de fundo #3C6E71
+                  child: Column(
+                    children: [
+                      // campo para usuário
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Usuário', // rótulo do campo
+                          labelStyle: TextStyle(
+                            color: Colors.white, // cor do rótulo branco
+                          ),
+                          border: OutlineInputBorder(), // borda do campo
+                        ),
+                      ),
+                      SizedBox(height: 10), // espaço entre os campos
+                      // campo para senha
+                      TextField(
+                        obscureText: true, // esconde os caracteres da senha
+                        decoration: InputDecoration(
+                          labelText: 'Senha', // rótulo do campo
+                          labelStyle: TextStyle(
+                            color: Colors.white, // cor do rótulo branco
+                          ),
+                          border: OutlineInputBorder(), // borda do campo
+                        ),
+                      ),
+                      SizedBox(height: 10), // espaço entre o campo e o botão
+                      // botão de Login
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()),
+                          );
+                        },
+                        child: Text('Login'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFFDAE0E2), // cor de fundo #DAE0E2
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // link para recuperar a senha
+                TextButton(
+                  onPressed: () {
+                    // ação do botão
+                  },
+                  child: Text(
+                    'Problemas com login?\nclique aqui para recuperar sua senha.',
+                    style: TextStyle(
+                      color: Color(0xFF0D3B66), // cor do texto #0D3B66
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text("My Health in My Hands"),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Aqui está o conteúdo original do PieChartSample2()
+              PieChartSample2(),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterExam(),
+                    ),
+                  );
+                },
+                child: Text('Criar Cadastro'),
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
