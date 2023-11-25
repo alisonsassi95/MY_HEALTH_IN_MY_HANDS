@@ -38,17 +38,13 @@ class _RegisterExamState extends State<RegisterExam> {
       return;
     }
 
-    // Dados a serem enviados
-    Map<String, String> data = {
+    Map data = {
       "nome": nomeController.text,
       "sobrenome": sobrenomeController.text,
       "data_nascimento": dataNascimentoController.text,
       "tipo_sangue": tipoSangue,
     };
-
-    // URL do endpoint
-    Uri url = Uri.parse("https://seu-endpoint.com/api/cadastro");
-
+    Uri url = Uri.parse("http://10.0.2.2:8000/process_data");
     // Enviar os dados utilizando o método POST
     try {
       final response = await http.post(
@@ -58,20 +54,30 @@ class _RegisterExamState extends State<RegisterExam> {
           "Content-Type": "application/json",
         },
       );
+      print(response);
 
       if (response.statusCode == 200) {
-        // Sucesso! Os dados foram enviados com sucesso.
-        print("Cadastro realizado com sucesso!");
+        print("Cadastro realizado com sucesso! response = ${response.body}");
         _showNotification("Dados cadastrados com sucesso!", Colors.green);
+
+        //Abrir a tela home novamente.
+
       } else {
-        // Ocorreu um erro ao enviar os dados
         print("Erro ao cadastrar. Status code: ${response.statusCode}");
-        _showNotification(
-            "Erro ao cadastrar. Status code: ${response.statusCode}",
-            Colors.red);
+        Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+        // Verifica se a resposta da API possui a chave 'detail'
+        if (jsonResponse.containsKey('detail')) {
+          String detailMessage = jsonResponse['detail'];
+          _showNotification(
+              "Erro ao cadastrar. Detalhe: $detailMessage", Colors.red);
+        } else {
+          _showNotification(
+              "Erro ao cadastrar. Status code: ${response.statusCode}",
+              Colors.red);
+        }
       }
     } catch (e) {
-      // Ocorreu um erro de conexão
       print("Erro de conexão: $e");
       _showNotification("Erro de conexão: $e", Colors.red);
     }

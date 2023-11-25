@@ -10,6 +10,27 @@ async def begin():
 
 @app.post("/process_data")
 async def process_data(data: Dict[str, str]):
+    """
+    Cadastra uma nova pessoa.
+
+    Args:
+    - data (dict): Um dicionário contendo as informações da pessoa.
+      - nome (str): O nome da pessoa.
+      - sobrenome (str): O sobrenome da pessoa.
+      - data_nascimento (str): A data de nascimento da pessoa (no formato DD-MM-YYYY).
+      - tipo_sangue (str): O tipo sanguíneo da pessoa.
+
+    Returns:
+    - dict: Um dicionário indicando o status da operação.
+      - status (str): Mensagem indicando o status da operação.
+      - statusCode (int): O código de status HTTP resultante da operação.
+    
+    Raises:
+    - HTTPException: Uma exceção HTTP com detalhes sobre campos obrigatórios não preenchidos.
+      - status_code (int): O código de status HTTP (400 Bad Request).
+      - detail (str): Mensagem detalhando qual campo não pode ser nulo.
+    """
+
     nome = data.get("nome")
     sobrenome = data.get("sobrenome")
     data_nascimento = data.get("data_nascimento")
